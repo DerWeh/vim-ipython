@@ -43,6 +43,11 @@ if !exists('g:ipy_perform_mappings')
     let g:ipy_perform_mappings = 1
 endif
 
+" Enable cell folding
+if !exists('g:ipy_cell_folding')
+    let g:ipy_cell_folding = 1
+endif
+
 if !exists('g:ipython_dictionary_completion')
     let g:ipython_dictionary_completion = 0
 endif
@@ -351,6 +356,37 @@ endpython
         return res
     endif
 endfun
+
+" Custom folding function to fold cells
+function! FoldByCell(lnum)
+    " let level = indent(a:linenum) / &shiftwidth
+    let pattern = '\v^\s*(##|' . escape('# <codecell>', '<>') . ').*$'
+    let custop = '\v\{\{\{'
+    let custclose = '\v}}}$'
+    if getline(a:lnum) =~? pattern
+        return '>1'
+    elseif getline(a:lnum+1) =~? pattern
+        return '<1'
+    elseif getline(a:lnum) =~? custop
+        " return '>' . string(indent(a:lnum) / &shiftwidth + 1)
+        return '>1'
+    elseif getline(a:lnum) =~? custclose
+        return '<1'
+    "elseif getline(a:lnum) =~? '\v^\s*$'
+    "    return '='
+    else
+        return '='
+    endif
+endfunction
+
+function! EnableFoldByCell()
+	setlocal foldmethod=expr
+	setlocal foldexpr=FoldByCell(v:lnum)
+endfunction
+
+if g:ipy_cell_folding != 0
+    call EnableFoldByCell()
+endif
 
 function! IPythonHistory(pattern, ...)
     let session = a:0 > 0 ? a:1 : (-1)
