@@ -184,7 +184,7 @@ function! s:DoMappings()
         " map  <buffer> <silent> <S-F5>         <Plug>(IPython-RunLine)
         map  <buffer> <silent> <F6>           <Plug>(IPython-RunTextObj)
         map  <buffer> <silent> <F9>           <Plug>(IPython-RunLines)
-        map  <buffer> <silent> ,d             <Plug>(IPython-OpenPyDoc)
+        map  <buffer> <silent> <Leader>d             <Plug>(IPython-OpenPyDoc)
         map  <buffer> <silent> <M-r>          <Plug>(IPython-UpdateShell)
         map  <buffer> <silent> <S-F9>         <Plug>(IPython-ToggleReselect)
         "map  <buffer> <silent> <C-F6>         <Plug>(IPython-StartDebugging)
@@ -202,13 +202,26 @@ function! s:DoMappings()
         "map  <buffer> <silent> <F11>          <Plug>(IPython-PlotCloseAll)
 
         "pi custom
-        map  <buffer> <silent> <C-Return>        <Plug>(IPython-RunFile)
-        " map  <buffer> <silent> <Leader>x         <Plug>(IPython-RunLine)
-        " imap <buffer> <silent> <Leader>x         <Esc><Plug>(IPython-RunLine)
+        "map  <buffer> <silent> <C-Return>        <Plug>(IPython-RunFile)
+        map  <buffer> <silent> <Leader>x         <Plug>(IPython-RunLine)
+        imap <buffer> <silent> <Leader>x         <Esc><Plug>(IPython-RunLine)
         map  <buffer> <silent> <M-S>             <Plug>(IPython-RunLineAsTopLevel)
         "xmap <buffer> <silent> <Leader>x         <Plug>(IPython-RunLinesAsTopLevel)
         xmap <buffer> <silent> <M-S>             <Plug>(IPython-RunLines)
-        map  <buffer> <silent> <Leader><Leader>x <Plug>(IPython-RunCell)
+        map  <buffer>          <C-Return>        <Plug>(IPython-RunCell)
+        map  <buffer>          			    <Plug>(IPython-RunCell)
+
+        " personal changes
+        map  <buffer>          <Leader>s         <Plug>(IPython-RunCell)
+            " <CR><BS><C-o> ensures to leave edit and autocomplete
+        imap <buffer> <silent> <S-Return>        <CR><BS><C-o><Plug>(IPython-RunLine)<CR>
+        imap <buffer>          OM              <CR><BS><C-o><Plug>(IPython-RunLine)<CR>
+        " imap <buffer> <silent> <Leader>d         <CR><BS><C-o><Plug>(IPython-OpenPyDoc)
+        imap <buffer> <silent> <Leader>d         <Esc>:<C-u>call <SID>GetDocBuffer()<CR>
+        map  <buffer> <silent> <Leader>r         <Plug>(IPython-UpdateShell)
+        map  <buffer> <silent> <Leader>q         <Plug>(IPython-PlotClearCurrent)
+        map  <buffer> <silent> <Leader>qq        <Plug>(IPython-PlotCloseAll)
+
 
         " noremap  <buffer> <silent> <M-c>      I#<ESC>
         " xnoremap <buffer> <silent> <M-c>      I#<ESC>
