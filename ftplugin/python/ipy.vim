@@ -137,7 +137,7 @@ endfun
 
 augroup vim-ipython
     autocmd!
-    au FileType python IPython
+    " au FileType python IPython
     " Update the vim-ipython shell when the cursor is not moving.
     " You can change how quickly this happens after you stop moving the cursor by
     " setting 'updatetime' (in milliseconds). For example, to have this event
