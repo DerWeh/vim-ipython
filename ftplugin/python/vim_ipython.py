@@ -46,6 +46,13 @@ class VimVars(object):
 
 vim_vars = VimVars()
 
+# Read global configuration variables
+reselect = bool(int(vim.eval("g:ipy_reselect")))
+show_execution_count = bool(int(vim.eval("g:ipy_show_execution_count")))
+monitor_subchannel = bool(int(vim.eval("g:ipy_monitor_subchannel")))
+run_flags = vim.eval("g:ipy_run_flags")
+current_line = ""
+
 # get around unicode problems when interfacing with vim
 vim_encoding=vim.eval('&encoding') or 'utf-8'
 
