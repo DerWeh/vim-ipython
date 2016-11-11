@@ -270,10 +270,11 @@ function! s:GetDocBuffer()
     nnoremap <buffer> <silent> ` <C-w>p:if winheight(0)<30<bar>res 30<bar>endif<bar>undojoin<bar>startinsert!<CR>
 endfunction
 
-command! -nargs=* IPython :call <SID>DoMappings()|:Python2or3 km_from_string("<args>")
+" custom changes: added ';setup_kernel()'
+command! -nargs=* IPython :call <SID>DoMappings()|:Python2or3 km_from_string("<args>");setup_kernel()
 command! -nargs=0 IPythonClipboard :Python2or3 km_from_string(vim.eval('@+'))
 command! -nargs=0 IPythonXSelection :Python2or3 km_from_string(vim.eval('@*'))
-command! -nargs=* IPythonNew :Python2or3 new_ipy("<args>")
+command! -nargs=* IPythonNew :Python2or3 new_ipy("<args>");setup_kernel()
 command! -nargs=* IPythonInterrupt :Python2or3 interrupt_kernel_hack("<args>")
 command! -nargs=0 IPythonTerminate :Python2or3 terminate_kernel_hack()
 

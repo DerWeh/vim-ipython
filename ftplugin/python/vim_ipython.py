@@ -950,3 +950,35 @@ def get_session_history(session=None, pattern=None):
         return []
     except KeyError:
         return []
+
+
+# !my personal setup for the kernel
+def setup_kernel():
+    request = r"""
+from inspect import getdoc as __getdoc__
+from IPython.utils.signatures import signature as __signature__
+
+def completion_metadata(ip):
+    metadata = [dict(word=m) for m in ip.Completer.matches]
+    for m in metadata:
+        try:
+            obj = eval(m['word'], ip.user_ns)
+        except Exception:
+            continue
+        doc = __getdoc__(obj)
+        if callable(obj):
+            try:
+                m['abbr'] = m['word'] +  str(__signature__(obj))
+            except ValueError:
+                pass
+            if doc:
+                m['menu'] = doc.split('\n')[0]
+                m['info'] = doc
+        else:
+            m['menu'] = str(obj)
+            if doc:
+                m['info'] = doc
+    return metadata
+"""
+    send(request, silent=True)
+
