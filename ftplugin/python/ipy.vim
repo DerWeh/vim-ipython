@@ -234,8 +234,8 @@ function! s:DoMappings()
         " personal changes
         map  <buffer>          <Leader>s         <Plug>(IPython-RunCell)
             " <CR><BS><C-o> ensures to leave edit and autocomplete
-        imap <buffer> <silent> <S-Return>        <CR><BS><C-o><Plug>(IPython-RunLine)<CR>
-        imap <buffer>          OM              <CR><BS><C-o><Plug>(IPython-RunLine)<CR>
+        imap <buffer>          <S-Return>        <Esc><Esc><Plug>(IPython-RunLine)o
+        imap <buffer>          OM              <Esc><Esc><Plug>(IPython-RunLine)o
         " imap <buffer> <silent> <Leader>d         <CR><BS><C-o><Plug>(IPython-OpenPyDoc)
         imap <buffer> <silent> <Leader>d         <Esc>:<C-u>call <SID>GetDocBuffer()<CR>
         map  <buffer> <silent> <Leader>r         <Plug>(IPython-UpdateShell)
